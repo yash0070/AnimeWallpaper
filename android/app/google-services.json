@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "256368858597",
+    "project_id": "animewallpaer",
+    "storage_bucket": "animewallpaer.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:256368858597:android:4145c53c02a62d9662cb0c",
+        "android_client_info": {
+          "package_name": "com.example.anime_wallpaper_hd"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "256368858597-jpefhsapl5g2vre66t44nujso3bmcel4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnFWQLaX5WpBoh1eXc6Tig985vDq6vW9w"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "256368858597-jpefhsapl5g2vre66t44nujso3bmcel4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
