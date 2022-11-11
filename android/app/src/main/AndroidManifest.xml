@@ -2,7 +2,7 @@
     package="com.example.anime_wallpaper_hd">
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="anime_wallpaper_hd"
+        android:label="Anime HD Wallpaper"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
@@ -36,5 +36,8 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-1229485860316774~9480851423"/>
     </application>
 </manifest>

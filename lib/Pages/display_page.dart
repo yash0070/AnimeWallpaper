@@ -1,13 +1,10 @@
-import 'package:anime_wallpaper_hd/utilities.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
+
 import 'package:flutter_wallpaper_manager/flutter_wallpaper_manager.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:gallery_saver/gallery_saver.dart';
-import 'package:http/http.dart' as http;
-import 'package:share_plus/share_plus.dart';
 
 class DisplayPage extends StatefulWidget {
   String image;
@@ -18,14 +15,20 @@ class DisplayPage extends StatefulWidget {
 }
 
 class _DisplayPageState extends State<DisplayPage> {
+//
+  bool isSet = false;
+
   Future<void> setWallpaer(BuildContext context, String path) async {
     var actionSheet = CupertinoActionSheet(
-      title: Text("Set as"),
+      title: const Text("Set as"),
       actions: [
         CupertinoActionSheetAction(
             onPressed: () async {
-              Navigator.of(context).pop("LOCK");
-              Fluttertoast.showToast(msg: "Wallpaper Updated");
+              setState(() {
+                isSet = false;
+              });
+              Navigator.of(context).pop("Home");
+              Fluttertoast.showToast(msg: "Wallpaper Updated as Home Screen");
               int location = WallpaperManager.HOME_SCREEN;
               var file =
                   await DefaultCacheManager().getSingleFile(widget.image);
@@ -33,10 +36,15 @@ class _DisplayPageState extends State<DisplayPage> {
                   file.path, location);
             },
             child: const Text("HOME")),
+
+        //
         CupertinoActionSheetAction(
           onPressed: () async {
-            Navigator.of(context).pop("LOCK");
-            Fluttertoast.showToast(msg: "Wallpaper Updated");
+            setState(() {
+              isSet = false;
+            });
+            Navigator.of(context).pop("Lock");
+            Fluttertoast.showToast(msg: "Wallpaper Updated as Lock Screen ");
             int location = WallpaperManager.LOCK_SCREEN;
             var file = await DefaultCacheManager().getSingleFile(widget.image);
             var result = await WallpaperManager.setWallpaperFromFile(
@@ -44,10 +52,15 @@ class _DisplayPageState extends State<DisplayPage> {
           },
           child: const Text("LOCK"),
         ),
+
+        //
         CupertinoActionSheetAction(
           onPressed: () async {
-            Navigator.of(context).pop("LOCK");
-            Fluttertoast.showToast(msg: "Wallpaper Updated");
+            setState(() {
+              isSet = false;
+            });
+            Navigator.of(context).pop("Both");
+            Fluttertoast.showToast(msg: "Wallpaper Updated as Both Screen");
             int location = WallpaperManager.BOTH_SCREEN;
             var file = await DefaultCacheManager().getSingleFile(widget.image);
             var result = await WallpaperManager.setWallpaperFromFile(
@@ -55,22 +68,22 @@ class _DisplayPageState extends State<DisplayPage> {
           },
           child: const Text("BOTH"),
         ),
+
+        //
         CupertinoActionSheetAction(
           onPressed: () async {
+            setState(() {
+              isSet = false;
+            });
             Navigator.of(context).pop("DOwnload");
             Fluttertoast.showToast(msg: "Succesfully Download");
             String url = widget.image.toString();
             await GallerySaver.saveImage(url);
           },
-          child: Text("Download"),
+          child: const Text("Download"),
         ),
-        CupertinoActionSheetAction(
-          onPressed: () async {
-            var url = widget.image.toString();
-            await Share.shareFiles([url]);
-          },
-          child: Text("Share"),
-        ),
+
+        //
       ],
     );
     var option = await showCupertinoModalPopup(
@@ -89,6 +102,7 @@ class _DisplayPageState extends State<DisplayPage> {
         width: size.width,
         decoration: BoxDecoration(
           image: DecorationImage(
+            opacity: isSet ? 0.5 : 1,
             image: NetworkImage(widget.image.toString()),
             fit: BoxFit.fill,
           ),
@@ -98,6 +112,9 @@ class _DisplayPageState extends State<DisplayPage> {
           children: [
             InkResponse(
               onTap: () async {
+                setState(() {
+                  isSet = true;
+                });
                 await setWallpaer(context, widget.image);
               },
               child: Container(
